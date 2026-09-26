@@ -6,6 +6,7 @@ import connectDb from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import jobRoutes from "./routes/jobRoutes.js";
 import applyRoutes from "./routes/applyRoutes.js";
+import contractRoutes from "./routes/contractRoutes.js";
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/apply", applyRoutes);
+app.use("/api/contracts", contractRoutes);
 
 const PORT = process.env.PORT || 5000;
 
