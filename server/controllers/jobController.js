@@ -7,7 +7,6 @@ export const jobs = async (req, res) => {
       title,
       description,
       requiredSkills,
-      budgetType,
       budget,
       experience,
       deadline,
@@ -18,7 +17,6 @@ export const jobs = async (req, res) => {
       !description ||
       !Array.isArray(requiredSkills) ||
       requiredSkills.length === 0 ||
-      !budgetType ||
       !budget ||
       !deadline
     ) {
@@ -33,7 +31,6 @@ export const jobs = async (req, res) => {
       title,
       description,
       requiredSkills,
-      budgetType,
       budget,
       experience,
       deadline,

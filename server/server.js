@@ -7,7 +7,7 @@ import authRoutes from "./routes/authRoutes.js";
 import jobRoutes from "./routes/jobRoutes.js";
 import applyRoutes from "./routes/applyRoutes.js";
 import contractRoutes from "./routes/contractRoutes.js";
-
+import workSubmissionRoutes from "./routes/workSubmissionRoutes.js"
 dotenv.config();
 
 const app = express();
@@ -28,6 +28,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/apply", applyRoutes);
 app.use("/api/contracts", contractRoutes);
+app.use("/api/work-submissions", workSubmissionRoutes)
 
 const PORT = process.env.PORT || 5000;
 
