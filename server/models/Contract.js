@@ -5,7 +5,7 @@ const contractSchema = new mongoose.Schema(
     job: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Job",
-      required: true,
+      required: true, 
       unique: true,
     },
     apply: {

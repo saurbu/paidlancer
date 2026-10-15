@@ -8,6 +8,8 @@ import jobRoutes from "./routes/jobRoutes.js";
 import applyRoutes from "./routes/applyRoutes.js";
 import contractRoutes from "./routes/contractRoutes.js";
 import workSubmissionRoutes from "./routes/workSubmissionRoutes.js"
+import paymentRoutes from "./routes/paymentRoutes.js"
+import { handleRazorpayWebhook } from "./controllers/paymentWebhookController.js"
 dotenv.config();
 
 const app = express();
@@ -20,7 +22,11 @@ app.use(
     credentials: true,
   })
 );
-
+app.post(
+    "/api/payments/webhook",
+    express.raw({ type: "application/json" }),
+    handleRazorpayWebhook
+);
 app.use(express.json());
 app.use(cookieParser());
 
@@ -29,6 +35,7 @@ app.use("/api/jobs", jobRoutes);
 app.use("/api/apply", applyRoutes);
 app.use("/api/contracts", contractRoutes);
 app.use("/api/work-submissions", workSubmissionRoutes)
+app.use("/api/payments", paymentRoutes)
 
 const PORT = process.env.PORT || 5000;
 

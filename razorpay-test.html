@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PaidLancer Razorpay Test</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <h2>PaidLancer — Razorpay Test Payment</h2>
+    <p>Test amount: ₹15,000</p>
+    <button id="payButton">Pay with Razorpay</button>
+    <p id="result"></p>
+
+    <script>
+        const options = {
+            key: "rzp_test_TnWygXZRFmQ50K",
+            amount: 1500000,
+            currency: "INR",
+            name: "PaidLancer",
+            description: "Test work submission payment",
+            order_id: "order_ToHdfSwsSjpQLF",
+
+            handler: function (response) {
+                document.getElementById("result").textContent =
+                    "Checkout completed. Payment ID: " +
+                    response.razorpay_payment_id +
+                    ". Check your webhook and MongoDB.";
+            },
+
+            modal: {
+                ondismiss: function () {
+                    document.getElementById("result").textContent =
+                        "Checkout closed. Check whether a payment was completed.";
+                }
+            },
+
+            theme: {
+                color: "#3399cc"
+            }
+        };
+
+        document.getElementById("payButton").addEventListener("click", function () {
+            const checkout = new Razorpay(options);
+
+            checkout.on("payment.failed", function (response) {
+                document.getElementById("result").textContent =
+                    "Test payment failed: " +
+                    (response.error.description || "Unknown error");
+            });
+
+            checkout.open();
+        });
+    </script>
+</body>
+</html>
