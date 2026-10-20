@@ -102,41 +102,50 @@ export const submitWork = async (req, res) => {
     }
 }
 
-export const getSubmittedWork = async (req, res) => {
-    try{
-        const {contractId} = req.params
-        const contract =  await Contract.findById(contractId)
-        if (!contract){
-            return res.status(400).json({
-                success: false,
-                message: "contract not found",
-            })
-        }
-        
-        const isClient = Contract.client.toString() === req.userId.toString()
-        const isFreelancer = Contract.freelancer.toString() === req.userId.toString()
 
-        if (!isFreelancer || !isClient) {
-            return res.status(400).json({
+export const getSubmittedWork = async (req, res) => {
+    try {
+        const { contractId } = req.params;
+
+        const contract = await Contract.findById(contractId);
+
+        if (!contract) {
+            return res.status(404).json({
                 success: false,
-                message: "u can only view ur work", 
-            })
+                message: "Contract not found",
+            });
         }
-        const submissions = await WorkSubmission.find({contract: contractId})
-        .populate("freelancer", "name email profileimg bio"  )
-        .sort({stage: 1})
+
+        const isClient =
+            contract.client.toString() === req.userId.toString();
+
+        const isFreelancer =
+            contract.freelancer.toString() === req.userId.toString();
+
+        if (!isClient && !isFreelancer) {
+            return res.status(403).json({
+                success: false,
+                message: "You are not authorized to view this work",
+            });
+        }
+
+        const submissions = await WorkSubmission.find({
+            contract: contractId,
+        })
+            .populate("freelancer", "name email profileImg bio")
+            .sort({ stage: 1 });
 
         return res.status(200).json({
             success: true,
-            message: "works",
+            message: "Work submissions fetched successfully",
             submissions,
-        })
+        });
     } catch (err) {
-        console.error("work find error:", err)
+        console.error("Get submitted work error:", err);
 
         return res.status(500).json({
             success: false,
             message: "Internal server error",
-        })
+        });
     }
-}
+};

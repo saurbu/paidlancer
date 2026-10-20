@@ -294,3 +294,26 @@ export const verifyPayment = async (req, res) => {
         });
     }
 };
+
+
+export const getMyPayments = async (req, res) => {
+    try {
+        const payments = await Payment.find({
+            client: req.userId,
+        })
+            .populate("contract", "title")
+            .populate("submission", "description amount status")
+            .sort({ createdAt: -1 });
+
+        return res.status(200).json({
+            success: true,
+            count: payments.length,
+            payments,
+        });
+    } catch (error) {
+        console.error("Get payments error:", error);
+        return res.status(500).json({
+            message: "Failed to fetch payment history",
+        });
+    }
+};

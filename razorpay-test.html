@@ -22,12 +22,16 @@
             description: "Test work submission payment",
             order_id: "order_ToHdfSwsSjpQLF",
 
+            
             handler: function (response) {
-                document.getElementById("result").textContent =
-                    "Checkout completed. Payment ID: " +
-                    response.razorpay_payment_id +
-                    ". Check your webhook and MongoDB.";
+            document.getElementById("result").textContent =
+                "Payment ID: " + response.razorpay_payment_id +
+                "\nOrder ID: " + response.razorpay_order_id +
+                "\nSignature: " + response.razorpay_signature;
+
+            console.log("Razorpay response:", response);
             },
+
 
             modal: {
                 ondismiss: function () {
