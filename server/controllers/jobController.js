@@ -153,3 +153,23 @@ export const deleteJob = async (req, res) => {
     })
   }
 }
+
+export const getMyJobs = async (req, res) => {
+  try {
+    const jobs = await Job.find({
+      client: req.userId,
+    }).sort({ createdAt: -1 });
+
+    return res.status(200).json({
+      success: true,
+      jobs,
+    });
+  } catch (err) {
+    console.error("Get client's jobs error:", err);
+
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+}
