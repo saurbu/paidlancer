@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { store } from "./app/store";
 import { ThemeProvider } from "./context/ThemeContext";
 import App from "./App";
+import "./style/navbar-footer.css";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(

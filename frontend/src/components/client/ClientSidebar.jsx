@@ -165,16 +165,6 @@ export default function ClientSidebar({
 
       {/* Controls remain at the bottom of the sidebar */}
       <div className="shrink-0 border-t border-stone-200 bg-white p-3 dark:border-white/10 dark:bg-[#191d19]">
-        <button
-          type="button"
-          onClick={toggleTheme}
-          aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
-          aria-pressed={theme === "dark"}
-          className="mb-1 flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-stone-600 transition hover:bg-stone-100 hover:text-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 dark:text-stone-300 dark:hover:bg-white/5 dark:hover:text-white"
-        >
-          <Icon name={theme === "light" ? "moon" : "sun"} size={18} />
-          {theme === "light" ? "Dark mode" : "Light mode"}
-        </button>
 
         <button
           type="button"

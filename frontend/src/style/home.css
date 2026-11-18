@@ -1,0 +1,168 @@
+/* PaidLancer homepage: use the same theme tokens as index.css */
+.home-page {
+  width: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.home-page section {
+  box-sizing: border-box;
+}
+
+.home-page input,
+.home-page button {      
+  font: inherit;
+}
+
+.home-page button {
+  cursor: pointer;
+}
+
+.home-page .hero-section {
+  width: 100%;
+}
+
+.home-page .market-job {
+  min-width: 0;
+}
+
+.home-page .market-job-main {
+  min-width: 0;
+}
+
+.home-page .market-job-main h3 a {
+  color: var(--text);
+  transition: color 160ms ease;
+}
+
+.home-page .market-job-main h3 a:hover {
+  color: var(--green);
+}
+
+.home-page .category-card {
+  color: var(--text);
+}
+
+.home-page .category-card:focus-visible,
+.home-page button:focus-visible,
+.home-page a:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+
+.home-page .category-card-active {
+  border-color: var(--green);
+  background: var(--green-soft);
+}
+
+.home-page .job-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 13px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.home-page .state-panel {
+  border: 1px dashed var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  padding: 48px 18px;
+  color: var(--text);
+  text-align: center;
+}
+
+.home-page .loading-indicator {
+  width: 30px;
+  height: 30px;
+  margin: 0 auto 16px;
+  border: 3px solid var(--border);
+  border-top-color: var(--green);
+  border-radius: 50%;
+  animation: home-loading-spin 750ms linear infinite;
+}
+
+@keyframes home-loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.home-page .clear-filters {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  padding: 9px 12px;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.home-page .clear-filters:hover {
+  border-color: var(--green);
+  background: var(--surface-soft);
+}
+
+.home-page .steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.home-page .step-card {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+  padding: 24px;
+}
+
+.home-page .step-card h3 {
+  margin-top: 22px;
+  font-size: 17px;
+  font-weight: 750;
+}
+
+.home-page .step-card p {
+  margin-top: 9px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.home-page .final-cta {
+  border: 1px solid var(--border);
+  background: var(--green-soft);
+  color: var(--text);
+}
+
+@media (max-width: 900px) {
+  .home-page .steps-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .home-page .hero-search {
+    gap: 6px;
+  }
+
+  .home-page .market-job {
+    padding: 18px 14px;
+  }
+
+  .home-page .final-cta {
+    padding: 32px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-page .loading-indicator {
+    animation: none;
+  }
+
+  .home-page .market-job-main h3 a {
+    transition: none;
+  }
+}

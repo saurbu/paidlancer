@@ -1,14 +1,24 @@
 
 import { Navigate, Route, Routes } from "react-router-dom";
+
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
+import FreelancerLayout from "./components/freelancer/FreelancerLayout";
+
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
+
 import ClientDashboard from "./pages/client/ClientDashboard";
+import ClientApplications from "./pages/client/ClientApplications";
 import PostJob from "./pages/client/PostJob";
+
+import FreelancerDashboard from "./pages/freelancer/FreelancerDashboard";
+import FreelancerApplications from "./pages/freelancer/FreelancerApplications";
+
+import JobDetails from "./pages/jobs/JobDetails";
 
 export default function App() {
   return (
@@ -17,10 +27,12 @@ export default function App() {
 
       <main className="app-main">
         <Routes>
+          {/* Public routes */}
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
+          {/* Dashboard redirect */}
           <Route
             path="/dashboard"
             element={
@@ -30,6 +42,7 @@ export default function App() {
             }
           />
 
+          {/* Client routes */}
           <Route
             path="/client/dashboard"
             element={
@@ -48,6 +61,44 @@ export default function App() {
             }
           />
 
+          <Route
+            path="/client/applications"
+            element={
+              <ProtectedRoute role="client">
+                <ClientApplications />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Freelancer routes - Shared Sidebar Layout */}
+          <Route
+            path="/freelancer"
+            element={
+              <ProtectedRoute role="freelancer">
+                <FreelancerLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route
+              index
+              element={<Navigate to="dashboard" replace />}
+            />
+
+            <Route
+              path="dashboard"
+              element={<FreelancerDashboard />}
+            />
+
+            <Route
+              path="applications"
+              element={<FreelancerApplications />}
+            />
+          </Route>
+
+          {/* Job Details */}
+          <Route path="/jobs/:id" element={<JobDetails />} />
+
+          {/* 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
