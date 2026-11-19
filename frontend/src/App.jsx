@@ -4,6 +4,8 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
+
+import ClientLayout from "./components/client/ClientLayout";
 import FreelancerLayout from "./components/freelancer/FreelancerLayout";
 
 import Home from "./pages/Home";
@@ -19,6 +21,7 @@ import FreelancerDashboard from "./pages/freelancer/FreelancerDashboard";
 import FreelancerApplications from "./pages/freelancer/FreelancerApplications";
 
 import JobDetails from "./pages/jobs/JobDetails";
+import MyProjects from "./pages/client/MyProjects";
 
 export default function App() {
   return (
@@ -42,33 +45,35 @@ export default function App() {
             }
           />
 
-          {/* Client routes */}
+          {/* Client routes - Shared Sidebar Layout */}
           <Route
-            path="/client/dashboard"
+            path="/client"
             element={
               <ProtectedRoute role="client">
-                <ClientDashboard />
+                <ClientLayout />
               </ProtectedRoute>
             }
-          />
+          >
+            <Route
+              index
+              element={<Navigate to="dashboard" replace />}
+            />
 
-          <Route
-            path="/client/post-job"
-            element={
-              <ProtectedRoute role="client">
-                <PostJob />
-              </ProtectedRoute>
-            }
-          />
+            <Route
+              path="dashboard"
+              element={<ClientDashboard />}
+            />
+            <Route path="projects" element={<MyProjects />} />
+            <Route
+              path="post-job"
+              element={<PostJob />}
+            />
 
-          <Route
-            path="/client/applications"
-            element={
-              <ProtectedRoute role="client">
-                <ClientApplications />
-              </ProtectedRoute>
-            }
-          />
+            <Route
+              path="applications"
+              element={<ClientApplications />}
+            />
+          </Route>
 
           {/* Freelancer routes - Shared Sidebar Layout */}
           <Route

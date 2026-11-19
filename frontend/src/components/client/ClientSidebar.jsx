@@ -121,14 +121,20 @@ export default function ClientSidebar({
           Overview
         </NavLink>
 
-        <Link
-          to="/client/dashboard#projects"
+        <NavLink
+          to="/client/projects"
           onClick={handleNavigation}
-          className="mb-1 flex items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-medium text-stone-500 transition hover:bg-stone-50 hover:text-stone-900 dark:text-stone-400 dark:hover:bg-white/5 dark:hover:text-white"
+          className={({ isActive }) =>
+            `mb-1 flex items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-medium transition ${
+              isActive
+                ? "bg-emerald-50 text-emerald-800 dark:bg-emerald-400/10 dark:text-emerald-300"
+                : "text-stone-500 hover:bg-stone-50 hover:text-stone-900 dark:text-stone-400 dark:hover:bg-white/5 dark:hover:text-white"
+            }`
+          }
         >
           <Icon name="jobs" size={18} />
           My projects
-        </Link>
+        </NavLink>
 
         <Link
           to="/"

@@ -172,4 +172,4 @@ export const getMyJobs = async (req, res) => {
       message: "Internal server error",
     });
   }
-}
+} 

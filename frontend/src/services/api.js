@@ -11,7 +11,7 @@ export const api = createApi({
     credentials: "include",
   }),
 
-  tagTypes: ["Auth", "Jobs", "Applications"],
+  tagTypes: ["Auth", "Jobs", "Applications", "Contracts"],
 
   endpoints: (builder) => ({
     // =========================
@@ -52,13 +52,11 @@ export const api = createApi({
     // JOBS
     // =========================
 
-    // Public jobs feed — used by freelancers to discover jobs.
     getJobs: builder.query({
       query: () => "/jobs",
       providesTags: ["Jobs"],
     }),
 
-    // Get one job by ID.
     getJobById: builder.query({
       query: (jobId) => `/jobs/${jobId}`,
       providesTags: (result, error, jobId) => [
@@ -66,7 +64,6 @@ export const api = createApi({
       ],
     }),
 
-    // Client creates a job.
     createJob: builder.mutation({
       query: (body) => ({
         url: "/jobs",
@@ -76,13 +73,11 @@ export const api = createApi({
       invalidatesTags: ["Jobs"],
     }),
 
-    // Client gets only their own posted jobs.
     getMyJobs: builder.query({
       query: () => "/jobs/my-jobs",
       providesTags: ["Jobs"],
     }),
 
-    // Client deletes a job.
     deleteJob: builder.mutation({
       query: (jobId) => ({
         url: `/jobs/${jobId}`,
@@ -95,7 +90,6 @@ export const api = createApi({
     // APPLICATIONS
     // =========================
 
-    // Freelancer applies for a job.
     applyForJob: builder.mutation({
       query: (body) => ({
         url: "/apply",
@@ -105,7 +99,6 @@ export const api = createApi({
       invalidatesTags: ["Applications"],
     }),
 
-    // Client views applications for a selected job.
     getJobApplications: builder.query({
       query: (jobId) => `/apply/applied/${jobId}`,
       providesTags: (result, error, jobId) => [
@@ -113,28 +106,53 @@ export const api = createApi({
       ],
     }),
 
-    // Freelancer views their submitted applications.
     getMyApplications: builder.query({
       query: () => "/apply/myapplied",
       providesTags: ["Applications"],
     }),
 
-    // Client accepts an applicant.
     acceptApplication: builder.mutation({
       query: (applyId) => ({
         url: `/apply/accept/${applyId}`,
         method: "PATCH",
       }),
-      invalidatesTags: ["Applications", "Jobs"],
+      invalidatesTags: ["Applications", "Jobs", "Contracts"],
     }),
 
-    // Client rejects an applicant.
     rejectApplication: builder.mutation({
       query: (applyId) => ({
         url: `/apply/reject/${applyId}`,
         method: "PATCH",
       }),
       invalidatesTags: ["Applications"],
+    }),
+
+    // =========================
+    // CONTRACTS
+    // =========================
+
+    // Create a contract after accepting an application.
+    createContract: builder.mutation({
+      query: (body) => ({
+        url: "/contracts",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["Contracts", "Applications", "Jobs"],
+    }),
+
+    // Get contracts belonging to the logged-in user.
+    getMyContracts: builder.query({
+      query: () => "/contracts/my",
+      providesTags: ["Contracts"],
+    }),
+
+    // Get a particular contract.
+    getContractById: builder.query({
+      query: (contractId) => `/contracts/${contractId}`,
+      providesTags: (result, error, contractId) => [
+        { type: "Contracts", id: contractId },
+      ],
     }),
   }),
 });
@@ -159,4 +177,9 @@ export const {
   useGetMyApplicationsQuery,
   useAcceptApplicationMutation,
   useRejectApplicationMutation,
+
+  // Contracts
+  useCreateContractMutation,
+  useGetMyContractsQuery,
+  useGetContractByIdQuery,
 } = api;

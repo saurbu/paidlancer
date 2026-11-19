@@ -177,7 +177,7 @@ export default function FreelancerDashboard() {
       <div className="mx-auto w-full max-w-[1400px] px-4 py-6 sm:px-7 sm:py-9 lg:px-10 lg:py-10">
 
         {/* Welcome section */}
-        <section className="relative overflow-hidden rounded-3xl bg-[#eaf1e7] p-6 sm:p-9 lg:p-11 dark:bg-[#202d23]">
+        <section className="relative overflow-hidden rounded-3xl bg-[#eaf1e7] p-6 sm:p-9 lg:p-11 dark:bg-[#bc6847]">
           <div className="pointer-events-none absolute -right-10 -top-20 h-64 w-64 rounded-full border-[40px] border-white/30 dark:border-white/[0.04]" />
 
           <div className="relative max-w-2xl">
